@@ -16,8 +16,7 @@ TARGETLIBS=$(SDK_LIB_PATH)\kernel32.lib \
 	$(SDK_LIB_PATH)\shlwapi.lib \
 	..\AacDecoder\obj$(BUILD_ALT_DIR)\*\AacDecoder.lib \
 	..\BonTsEngine\obj$(BUILD_ALT_DIR)\*\BonTsEngine.lib \
-	..\HelperClass\obj$(BUILD_ALT_DIR)\*\HelperClass.lib \
-	..\LibFaad.lib
+	..\HelperClass\obj$(BUILD_ALT_DIR)\*\HelperClass.lib 
 
 INCLUDES=$(DDK_INC_PATH);..;..\AacDecoder;..\BonTsEngine;..\HelperClass
 

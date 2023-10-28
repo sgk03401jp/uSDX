@@ -10,13 +10,14 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-
+#if 0 ///
 // "Code from FAAD2 is copyright (c) Nero AG, www.nero.com"
 #ifdef _DEBUG
 #pragma comment(lib, "LibFaadd.lib")
 #else
 #pragma comment(lib, "LibFaad.lib")
 #endif
+#endif ///
 
 //////////////////////////////////////////////////////////////////////
 // ç\íz/è¡ñ≈

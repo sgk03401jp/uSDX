@@ -15,7 +15,7 @@
 // Input	#0	: CAdtsFrame		入力データ
 // Output	#0	: CMediaData		出力データ
 /////////////////////////////////////////////////////////////////////////////
-
+#if 0
 class CAacConverter : public CMediaDecoder  
 {
 public:
@@ -30,7 +30,7 @@ public:
 
 // CAacConverter
 	const BYTE GetLastChannelNum(void) const;
-	LONGLONG GetTotalSample(void);
+//	LONGLONG GetTotalSample(void);
 	void SetHoseiPol(LONG diff);
 	void ResetTotalFrame(void){	m_total_frame = 0;m_pes_frame=0;}
 	void ResetPesPerFrame(void){ m_pes_frame = 0; }
@@ -39,13 +39,13 @@ public:
 	void SetStereoMethod(DWORD method) { m_StereoToMono = method; }
 
 	const BYTE GetOutputChannel(void) const;
-	void	SetOutputChannel(const BYTE byChannel);
+//	void	SetOutputChannel(const BYTE byChannel);
 
 	static LONGLONG m_total_frame;
 protected:
 	static void CALLBACK OnLpcmFrame(const BYTE *pData, const DWORD dwSamples, const BYTE byChannel, PVOID pParam);
 
-	CAacDecoder m_AacDecoder;
+//	CAacDecoder m_AacDecoder;
 	CMediaData m_PcmBuffer;
 
 	BYTE m_byLastChannelNum;
@@ -74,3 +74,4 @@ private:
 
 
 };
+#endif

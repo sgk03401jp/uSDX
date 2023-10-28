@@ -1,19 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34114.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BonTsDemux", "BonTsDemux\BonTsDemux.vcxproj", "{BA716F9B-A96C-4B8A-8199-34340F352783}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BonTsDemuxC", "BonTsDemux\CLI\BonTsDemuxC.vcxproj", "{5EBDAF1C-91FB-4FE5-88FF-F3FFB1B10674}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BonTsDemuxLib", "BonTsDemux\BonTsDemuxLib.vcxproj", "{802903FF-59BA-45E4-80B4-36AFCA499F8A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfaad", "faad2-2.7\libfaad\libfaad.vcxproj", "{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfaad2_dll", "faad2-2.7\libfaad\libfaad2_dll.vcxproj", "{482DA264-EE88-4575-B208-87C4CB80CD08}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faad", "faad2-2.7\frontend\faad.vcxproj", "{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,24 +41,6 @@ Global
 		{802903FF-59BA-45E4-80B4-36AFCA499F8A}.Release|Win32.Build.0 = Release|Win32
 		{802903FF-59BA-45E4-80B4-36AFCA499F8A}.Release|x64.ActiveCfg = Release|x64
 		{802903FF-59BA-45E4-80B4-36AFCA499F8A}.Release|x64.Build.0 = Release|x64
-		{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}.Debug|Win32.Build.0 = Debug|Win32
-		{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}.Debug|x64.ActiveCfg = Debug|Win32
-		{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}.Release|Win32.ActiveCfg = Release|Win32
-		{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}.Release|Win32.Build.0 = Release|Win32
-		{BC3EFE27-9015-4C9C-AD3C-72B3B7ED2114}.Release|x64.ActiveCfg = Release|Win32
-		{482DA264-EE88-4575-B208-87C4CB80CD08}.Debug|Win32.ActiveCfg = Debug|Win32
-		{482DA264-EE88-4575-B208-87C4CB80CD08}.Debug|Win32.Build.0 = Debug|Win32
-		{482DA264-EE88-4575-B208-87C4CB80CD08}.Debug|x64.ActiveCfg = Debug|Win32
-		{482DA264-EE88-4575-B208-87C4CB80CD08}.Release|Win32.ActiveCfg = Release|Win32
-		{482DA264-EE88-4575-B208-87C4CB80CD08}.Release|Win32.Build.0 = Release|Win32
-		{482DA264-EE88-4575-B208-87C4CB80CD08}.Release|x64.ActiveCfg = Release|Win32
-		{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}.Debug|Win32.Build.0 = Debug|Win32
-		{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}.Debug|x64.ActiveCfg = Debug|Win32
-		{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}.Release|Win32.ActiveCfg = Release|Win32
-		{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}.Release|Win32.Build.0 = Release|Win32
-		{2BD8CBB3-DFC9-4A6A-9B7A-07ED749BED58}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

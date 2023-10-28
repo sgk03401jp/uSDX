@@ -385,7 +385,7 @@ void CBonTsDemuxDlg::OnDestroy()
 void CBonTsDemuxDlg::OnBnClickedBrowseTs()
 {
 	// TODO: ここにコントロール通知ハンドラ コードを追加します。
-	CFileDialog Dlg(TRUE, TEXT("ts"), NULL, OFN_ALLOWMULTISELECT | OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_ENABLESIZING, TEXT("TSファイル (*.ts)|*.ts||"));
+	CFileDialog Dlg(TRUE, TEXT("ts"), NULL, OFN_ALLOWMULTISELECT | OFN_HIDEREADONLY | OFN_FILEMUSTEXIST | OFN_ENABLESIZING, TEXT("TSファイル (*.m2ts)|*.m2ts||"));
 	TCHAR FileNameBuf[MAX_PATH * 50];
 	FileNameBuf[0] = _T('\0');
 	Dlg.m_ofn.lpstrFile = FileNameBuf;
@@ -678,7 +678,7 @@ void CBonTsDemuxDlg::StartDemux(void)
 		DisplayBatchStatus(TEXT("処理開始"));
 	}
 }
-
+#if 0 ///
 LRESULT CBonTsDemuxDlg::OnDoBatch(WPARAM wParam, LPARAM lParam )
 {
     // ここにメッセージを受け取ったときの処理を記述
@@ -687,7 +687,7 @@ LRESULT CBonTsDemuxDlg::OnDoBatch(WPARAM wParam, LPARAM lParam )
 	StartDemux();
 	return 0;
 }
-
+#endif ///
 
 void CBonTsDemuxDlg::OnBnClickedStart()
 {

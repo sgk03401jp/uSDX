@@ -207,8 +207,8 @@ NeAACDecHandle NEAACDECAPI NeAACDecOpen(void);
 
 NeAACDecConfigurationPtr NEAACDECAPI NeAACDecGetCurrentConfiguration(NeAACDecHandle hDecoder);
 
-unsigned char NEAACDECAPI NeAACDecSetConfiguration(NeAACDecHandle hDecoder,
-                                                   NeAACDecConfigurationPtr config);
+///unsigned char NEAACDECAPI NeAACDecSetConfiguration(NeAACDecHandle hDecoder,
+///                                                   NeAACDecConfigurationPtr config);
 
 /* Init the library based on info from the AAC file (ADTS/ADIF) */
 long NEAACDECAPI NeAACDecInit(NeAACDecHandle hDecoder,

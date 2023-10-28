@@ -78,7 +78,7 @@ CTsConverter::CTsConverter(IEventHandler *pEventHandler)
 	, m_TsDescrambler(this)
 	, m_VideoFile(this)
 	, m_AudioFile(this)
-	, m_AacConverter(this)
+///	, m_AacConverter(this)
 	, m_WaveWriter(this)
 	, m_WavWriter(this)
 	, m_WavSplitWriter(this)
@@ -168,18 +168,18 @@ const WORD CTsConverter::ConvertTsFile(LPCTSTR lpszTsFile, QWORD qwInputSizeLimi
 	m_AudioEsNum = AudioEs;
 	m_ServiceSelect = wServiceSelect;
 
-	m_AacConverter.SetOutputChannel(2);
-	m_AacConverter.SetStereoMethod(0);		// Stereo To Mono
+///	m_AacConverter.SetOutputChannel(2);
+///	m_AacConverter.SetStereoMethod(0);		// Stereo To Mono
 	WaveHead[22] = 0x02;
 	m_achannel = 2*2;
 	m_Useffmpg = FALSE;
-	m_DecodeAac = bDecodeAac;
+///	m_DecodeAac = bDecodeAac;
 	m_audio_delay = audio_delay;
 
 	if (lpszAudioFile) {
 		m_pAudioPath = new CString(lpszAudioFile);
 	}
-
+#if 0
 	if(SoundMethod == 3 || SoundMethod == 4){			// 5.1ch指定
 		m_AacConverter.SetOutputChannel(6);
 		WaveHead[22] = 0x06;
@@ -187,7 +187,7 @@ const WORD CTsConverter::ConvertTsFile(LPCTSTR lpszTsFile, QWORD qwInputSizeLimi
 	} else if (SoundMethod == 1 || SoundMethod == 2){
 		m_AacConverter.SetStereoMethod(SoundMethod);
 	}
-
+#endif
 	try{
 		// TSファイルを開く
 		if(!m_FileReader.OpenFile(lpszTsFile,qwInputSizeLimit))throw 0UL;
@@ -199,7 +199,7 @@ const WORD CTsConverter::ConvertTsFile(LPCTSTR lpszTsFile, QWORD qwInputSizeLimi
 				if(!m_VideoFile.OpenFile(lpszVideoFile))throw 1UL;
 				m_pTsDemuxer->SetOutputDecoder(&m_VideoFile, CTsDemuxer::OUTPUT_VIDEO);
 			}
-
+#if 0
 			if(lpszAudioFile != NULL && lpszAudioFile[0] != L'\0'){
 				if(bDecodeAac){
 					// AACデコードあり
@@ -217,6 +217,7 @@ const WORD CTsConverter::ConvertTsFile(LPCTSTR lpszTsFile, QWORD qwInputSizeLimi
 					m_pTsDemuxer->SetOutputDecoder(&m_AudioFile, CTsDemuxer::OUTPUT_AUDIO);
 				}
 			}
+#endif
 		} else {
 			m_Useffmpg = TRUE;
 
@@ -224,6 +225,7 @@ const WORD CTsConverter::ConvertTsFile(LPCTSTR lpszTsFile, QWORD qwInputSizeLimi
 // Audioを先にffmpegに渡すようにする。
 //  Videoを先に渡すとffmpegでvideo streamを解析するために必要なデータを送信し終わる前に
 //  BonTsDemuxでAudioを送信しようとして固まってしまうため
+#if 0
 			m_pTsDemuxer->SetOutputDecoder(&m_AacConverter, CTsDemuxer::OUTPUT_AUDIO);
 
 			m_pAudioBand = new CKeepRate(1024*64,		//packet
@@ -239,7 +241,7 @@ const WORD CTsConverter::ConvertTsFile(LPCTSTR lpszTsFile, QWORD qwInputSizeLimi
 			m_pWaveSend = new CHttpSend(this,port_number,64*1024);
 			m_pAudioBand->SetOutputDecoder(m_pWaveSend);
 /********************************/
-
+#endif
 			m_pVideoBand = new CKeepRate(64*1024,			//packet
 											0,				//margin
 											20*1024*1024,	//max
@@ -557,10 +559,10 @@ const DWORD CTsConverter::OnDecoderEvent(CMediaDecoder *pDecoder, const DWORD dw
 
 
 							delete m;
-							m_AacConverter.m_total_frame += hokan / m_achannel;
+//							m_AacConverter.m_total_frame += hokan / m_achannel;
 
 						} else if (hokan < 0){					// Videoが遅い場合
-							m_AacConverter.SetCutFrame((DWORD)(diff *-1* 48 / 90));	// Video先頭にあわせるために、削除するAudioフレーム数を設定
+//							m_AacConverter.SetCutFrame((DWORD)(diff *-1* 48 / 90));	// Video先頭にあわせるために、削除するAudioフレーム数を設定
 							m_pTsDemuxer->m_FirstAudioPts = m_pTsDemuxer->m_FirstVideoPts;			// 先頭がVIDEOと同期するので、Audioの先頭PTSをVIDEOと同じにする
 						}
 					}
@@ -569,7 +571,7 @@ const DWORD CTsConverter::OnDecoderEvent(CMediaDecoder *pDecoder, const DWORD dw
 				break;
 			case CTsDemuxer::EID_SERVICE_M2V_COMMIT:
 				if(m_vframe_hokan){
-					if(m_AacConverter.GetTotalSample() < 100000) break;
+//					if(m_AacConverter.GetTotalSample() < 100000) break;
 
 					LONGLONG pts_ms = m_pTsDemuxer->GetTotalVideoPts();
 					LONGLONG frame_ms = (LONGLONG)m_pTsDemuxer->GetVideoTotalFrame() * 3003;		// * 1000 / 29.97(fps)  → ms
@@ -587,12 +589,12 @@ const DWORD CTsConverter::OnDecoderEvent(CMediaDecoder *pDecoder, const DWORD dw
 			case CTsDemuxer::EID_SERVICE_AAC_COMMIT:
 				{
 
-				if(m_AacConverter.GetTotalSample() < 100000) break;
+//				if(m_AacConverter.GetTotalSample() < 100000) break;
 
 //				TRACE2("AAC	%I64d	%d\n",m_pTsDemuxer->m_NowAudioPts,m_AacConverter.GetTotalSample());
 
 				LONGLONG diff;
-				diff = (m_pTsDemuxer->GetTotalAudioPts() / 90 - m_AacConverter.GetTotalSample() / 48);	// PTS 90kHz Audio 48kHz らしいので、単位をmsにあわせて差分をとる。
+//				diff = (m_pTsDemuxer->GetTotalAudioPts() / 90 - m_AacConverter.GetTotalSample() / 48);	// PTS 90kHz Audio 48kHz らしいので、単位をmsにあわせて差分をとる。
 
 //				m_AudioLpfBuf = 0.05 * diff + 0.95 * m_AudioLpfBuf;		// PESと実データの差分をLPFに通す。係数は適当。。
 //				m_AudioLpfBuf = diff;
@@ -600,12 +602,12 @@ const DWORD CTsConverter::OnDecoderEvent(CMediaDecoder *pDecoder, const DWORD dw
 
 				if (diff > 5000 || diff < -5000){		// ±2sec以上は、やりすぎなので恐らくエラーが発生している
 					diff = 0;
-					m_AacConverter.ResetTotalFrame();
+//					m_AacConverter.ResetTotalFrame();
 					m_pTsDemuxer->ResetTotalAudioPts();
 					m_pTsDemuxer->EnableLipSync(TRUE);
 				} else {
 					if (diff == 0){
-						m_AacConverter.SetHoseiPol(0);
+//						m_AacConverter.SetHoseiPol(0);
 						m_AudHoseiFromVid = 0;
 					} else if(diff >= 70){					// 2 frame 以上ずれていたら
 						TRACE((LPCTSTR)L"diff : %dms\n",(LONG)diff);
@@ -621,28 +623,28 @@ const DWORD CTsConverter::OnDecoderEvent(CMediaDecoder *pDecoder, const DWORD dw
 
 							delete m;
 
-							m_AacConverter.m_total_frame += diff*48;
+//							m_AacConverter.m_total_frame += diff*48;
 						} else {														// 200ms未満だったら、徐々に補完
-							m_AacConverter.SetHoseiPol((LONG)4);				
+//							m_AacConverter.SetHoseiPol((LONG)4);				
 							m_AudHoseiFromVid = 1;
 						}
 
 					} else if (diff <= -70){			// -2 frame以上ずれていたら
 						TRACE((LPCTSTR)L"diff : %dms\n",(LONG)diff);			// 音声フレームが先走っている場合は、徐々にずらしていく(カットするとノイズになるため)
-						m_AacConverter.SetHoseiPol((LONG)-4);				
+//						m_AacConverter.SetHoseiPol((LONG)-4);				
 						m_AudHoseiFromVid = -1;
 					} else if (m_AudHoseiFromVid < 0){	// 
 						TRACE((LPCTSTR)L"diff : %dms\n",(LONG)diff);
-						m_AacConverter.SetHoseiPol((LONG)-4);				
+//						m_AacConverter.SetHoseiPol((LONG)-4);				
 						m_AudHoseiFromVid = -1;
 					} else if (m_AudHoseiFromVid > 0){
 						TRACE((LPCTSTR)L"diff : %dms\n",(LONG)diff);
-						m_AacConverter.SetHoseiPol((LONG)4);				
+//						m_AacConverter.SetHoseiPol((LONG)4);				
 						m_AudHoseiFromVid = 1;
 					}
 				}
 
-				m_AacConverter.ResetPesPerFrame();
+//				m_AacConverter.ResetPesPerFrame();
 
 				}
 				break;

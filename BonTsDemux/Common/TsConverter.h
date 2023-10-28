@@ -60,7 +60,7 @@ protected:
 	CTsDemuxer* m_pTsDemuxer;				// TSデマクサ
 	CFileWriter m_VideoFile;			// ビデオファイル
 	CFileWriter m_AudioFile;			// ビデオファイル
-	CAacConverter m_AacConverter;		// AACデコーダ
+//	CAacConverter m_AacConverter;		// AACデコーダ
 	CWaveWriter m_WaveWriter;			// Waveライタ
 	WavWriter m_WavWriter;
 	WavSplitWriter m_WavSplitWriter;
