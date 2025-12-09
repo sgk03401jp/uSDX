@@ -1,4 +1,9 @@
-
+/**
+ * @file ioexpander.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 class IOExpander16 {
 public:
 #ifdef LPF_SWITCHING_DL2MAN_USDX_REV2_BETA

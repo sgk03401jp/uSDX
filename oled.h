@@ -1,3 +1,9 @@
+/**
+ * @file oled.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 class OLEDDevice
     : public Print { // https://www.buydisplay.com/download/manual/ER-OLED0.91-3_Series_Datasheet.pdf
 public:

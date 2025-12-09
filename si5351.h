@@ -1,4 +1,9 @@
-
+/**
+ * @file si5351.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 class SI5351 {
 public:
   volatile int32_t _fout;

@@ -1,3 +1,9 @@
+/**
+ * @file pca9536.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 class PCA9536 {
 public:
 #define PCA9536_ADDR                                                           \

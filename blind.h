@@ -1,3 +1,9 @@
+/**
+ * @file blind.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 /*! This class is a dummy LCD replacement */
 class Blind : public Print { 
 public:

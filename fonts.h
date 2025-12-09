@@ -1,5 +1,8 @@
-/*
- * fonts.h
+/**
+ * @file fonts.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
  */
 
 /* // 6x8 technoblogy font

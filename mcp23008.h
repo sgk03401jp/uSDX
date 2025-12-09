@@ -1,3 +1,9 @@
+/**
+ * @file mcp23008.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 class MCP23008 {
 public:
 #define MCP23008_ADDR                                                          \

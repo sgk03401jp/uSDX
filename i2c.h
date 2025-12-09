@@ -1,8 +1,17 @@
+/**
+ * @file i2c.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ */
 //#define _I2C_DIRECT_IO    1 // Enables communications that is not using the
 //standard I/O pull-down approach with pull-up resistors, instead I/O is
 //directly driven with 0V/5V
-class I2C_ { // Secundairy I2C class used by I2C LCD/OLED, uses alternate pins:
-             // PD2 (SDA) and PD3 (SCL)
+
+/** Secundairy I2C class used by I2C LCD/OLED, uses alternate pins:
+ * PD2 (SDA) and PD3 (SCL)
+ */
+class I2C_ { 
 public:
 #if (F_MCU > 20900000)
 #ifdef OLED_SH1106
@@ -131,24 +140,28 @@ public:
   };
 };
 
-// I2C communication starts with a START condition, multiple single
-// byte-transfers (MSB first) followed by an ACK/NACK and stops with a STOP
-// condition; during data-transfer SDA may only change when SCL is LOW, during a
-// START/STOP condition SCL is HIGH and SDA goes DOWN for a START and UP for a
-// STOP. https://www.ti.com/lit/an/slva704/slva704.pdf
+/** I2C communication starts with a START condition, multiple single
+ * byte-transfers (MSB first) followed by an ACK/NACK and stops with a STOP
+ * condition; during data-transfer SDA may only change when SCL is LOW, during a
+ * START/STOP condition SCL is HIGH and SDA goes DOWN for a START and UP for a
+ * STOP. https://www.ti.com/lit/an/slva704/slva704.pdf
+ */
 class I2C {
 public:
 #if (F_MCU > 20900000)
 #define I2C_DELAY 6
 #else
-#define I2C_DELAY                                                              \
-  4 // Determines I2C Speed (2=939kb/s (too fast!!); 3=822kb/s; 4=731kb/s;
-    // 5=658kb/s; 6=598kb/s). Increase this value when you get I2C tx errors
-    // (E05); decrease this value when you get a CPU overload (E01). An
-    // increment eats ~3.5% CPU load; minimum value is 3 on my QCX, resulting
-    // in 84.5% CPU load
+/** Determines I2C Speed (2=939kb/s (too fast!!); 3=822kb/s; 4=731kb/s;
+ * 5=658kb/s; 6=598kb/s). Increase this value when you get I2C tx errors
+ * (E05); decrease this value when you get a CPU overload (E01). An
+ * increment eats ~3.5% CPU load; minimum value is 3 on my QCX, resulting
+ * in 84.5% CPU load
+ */
+#define I2C_DELAY  4 
 #endif
-#define I2C_DDR DDRC // Pins for the I2C bit banging
+
+/** @def Pins for the I2C bit banging */
+#define I2C_DDR DDRC 
 #define I2C_PIN PINC
 #define I2C_PORT PORTC
 #define I2C_SDA (1 << 4) // PC4
@@ -189,13 +202,15 @@ public:
     I2C_SDA_HI();
   }
   inline void stop() {
-    I2C_SDA_LO(); // ensure SDA is LO so STOP-condition can be initiated by
-                  // pulling SCL HI (in case of ACK it SDA was already LO, but
-                  // for a delayed ACK or NACK it is not!)
+  /** ensure SDA is LO so STOP-condition can be initiated by
+   * pulling SCL HI (in case of ACK it SDA was already LO, but
+   * for a delayed ACK or NACK it is not!)
+   */
+    I2C_SDA_LO(); 
     I2C_SCL_HI();
     I2C_SDA_HI();
-    I2C_DDR &=
-        ~(I2C_SDA | I2C_SCL); // prepare for a start: pull-up both SDA, SCL
+    /** prepare for a start: pull-up both SDA, SCL*/
+    I2C_DDR &= ~(I2C_SDA | I2C_SCL); 
 #ifndef RS_HIGH_ON_IDLE
     suspend();
 #endif
@@ -273,8 +288,10 @@ public:
 #endif
   }
   inline void suspend() {
-    I2C_SDA_LO(); // pin sharing SDA/LCD_RS: pull-down LCD_RS; QCXLiquidCrystal
-                  // require this for any operation
+    /** pin sharing SDA/LCD_RS: pull-down LCD_RS; QCXLiquidCrystal
+     * require this for any operation
+     */
+    I2C_SDA_LO(); 
   }
 
   void begin(){};

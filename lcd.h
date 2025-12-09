@@ -1,12 +1,21 @@
-class LCD : public Print { // inspired by: http://www.technoblogy.com/show?2BET
+/**
+ * @file lcd.h
+ * @brief uSDX+ HF Transceiver
+ * @author JJ1VQD
+ * @date 25-12-09
+ * @detail inspired by: http://www.technoblogy.com/show?2BET
+ */
+class LCD : public Print { 
 public: // LCD1602 display in 4-bit mode, RS is pull-up and kept low when idle
         // to prevent potential display RFI via RS line
 #define _dn 0 // PD0 to PD3 connect to D4 to D7 on the display
 #define _en 4 // PD4 - MUST have pull-up resistor
 #define _rs 4 // PC4 - MUST have pull-up resistor
-#define RS_PULLUP                                                              \
-  1 // Use pullup on RS line, ensures compliancy to the absolute maximum ratings
-    // for the si5351 sda input that is shared with rs pin of lcd
+
+/** @def Use pullup on RS line, ensures compliancy to the absolute maximum ratings
+ * for the si5351 sda input that is shared with rs pin of lcd
+ */
+#define RS_PULLUP   1 
 #ifdef RS_PULLUP
 #define LCD_RS_HI()                                                            \
   DDRC &= ~(1 << _rs);                                                         \
@@ -21,16 +30,20 @@ public: // LCD1602 display in 4-bit mode, RS is pull-up and kept low when idle
 #define LCD_PREP_NIBBLE(b)                                                     \
   (PORTD & ~(0xf << _dn)) | (b) << _dn | 1 << _en // Send data and enable high
   uint8_t _cols;
+
+/** Send command , make sure at least 40ms after
+ * power-up before sending commands
+ * bool reinit = (x == 0) && (y == 0);
+ */
   void begin(uint8_t x = 0,
-             uint8_t y = 0) { // Send command , make sure at least 40ms after
-                              // power-up before sending commands
-                              // bool reinit = (x == 0) && (y == 0);
+             uint8_t y = 0) { 
 #ifdef LCD_I2C
-#define PCF_ADDR                                                               \
-  0x27 // LCD I2C address where PCF8574 addess selection A0, A1, A2 are all open
-#define PCF_RS 0x01
-#define PCF_RW 0x02 // the 0xF0 bits are used for 4-bit data to the display.
-#define PCF_EN 0x04
+
+/** @def LCD I2C address where PCF8574 addess selection A0, A1, A2 are all open */
+#define PCF_ADDR  0x27 
+#define PCF_RS    0x01
+#define PCF_RW    0x02 /** @def the 0xF0 bits are used for 4-bit data to the display. */
+#define PCF_EN    0x04
 #define PCF_BACKLIGHT 0x08
     Wire.beginTransmission(PCF_ADDR);
     Wire.write(0);
@@ -56,9 +69,10 @@ public: // LCD1602 display in 4-bit mode, RS is pull-up and kept low when idle
     cmd(0x0c);              // Display on
     // if(reinit) return;
     cmd(0x01); // Clear display
-    delay(
-        3); // Allow to execute Clear on display
-            // [https://www.sparkfun.com/datasheets/LCD/HD44780.pdf, p.49, p58]
+    /** Allow to execute Clear on display
+     * [https://www.sparkfun.com/datasheets/LCD/HD44780.pdf, p.49, p58]
+     */
+    delay(3); 
     cmd(0x06); // * Entrymode: left, shift-dec
   }
 #ifdef LCD_I2C
